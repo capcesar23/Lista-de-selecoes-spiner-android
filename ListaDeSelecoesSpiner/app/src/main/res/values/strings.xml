@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Lista De Selecoes Spiner</string>
+
+    <string-array name="opcoes">
+        <item>opção 1</item>
+        <item>opção 2</item>
+        <item>opção 3</item>
+    </string-array>
 </resources>
