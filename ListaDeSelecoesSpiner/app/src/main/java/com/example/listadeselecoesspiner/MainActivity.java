@@ -1,17 +1,18 @@
 package com.example.listadeselecoesspiner;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.listadeselecoesspiner.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,5 +34,12 @@ public class MainActivity extends AppCompatActivity {
         binding.lista.setAdapter(adapter);
 
 
+        //pegando a seleção no dropdown/spinner com o botão e enviando para textView
+        binding.botao.setOnClickListener(v -> {
+            Toast.makeText(MainActivity.this,
+                    "Você escolheu " + binding.lista.getSelectedItem() + "!",
+                    Toast.LENGTH_SHORT).show();
+            binding.textView.setText((CharSequence) binding.lista.getSelectedItem());
+        });
     }
 }
