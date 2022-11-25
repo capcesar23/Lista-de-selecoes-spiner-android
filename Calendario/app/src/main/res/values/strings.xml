@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Calendario</string>
+    <string name="question">Que dia é hoje?</string>
+    <string name="submit">SUBMIT</string>
+</resources>
