@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ListView lista</string>
+    <string name="nome">Nome</string>
+    <string name="plataforma">Plataforma</string>
+</resources>
