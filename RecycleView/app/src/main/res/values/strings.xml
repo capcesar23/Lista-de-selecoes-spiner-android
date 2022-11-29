@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RecycleView</string>
+    <string name="jogo">jogo</string>
+    <string name="plataforma">plataforma</string>
 </resources>
