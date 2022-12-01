@@ -1,12 +1,11 @@
 package com.example.agendaandroid;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.agendaandroid.databinding.ActivityTelaConsultaBinding;
@@ -15,7 +14,6 @@ public class TelaConsulta extends AppCompatActivity {
 
     ActivityTelaConsultaBinding binding;
 
-    SQLiteDatabase db = null;//chamando banco de dados
     Cursor cursor;
 
     @Override
@@ -25,80 +23,52 @@ public class TelaConsulta extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        buscarDados();
-        binding.btnVoltarConsulta.setOnClickListener(v -> voltarTelaMain());
-      /*  binding.btnAnteriorConsulta.setOnClickListener(v -> registroAnterior());
-        binding.btnProximoConsulta.setOnClickListener(v -> proximoRegistro());
-*/
-    }
-    /*
-     * inicio da configuração do banco de dados
-     * */
-
-    //método abrir  o banco de dados
-    public void abrirDB() {
-        try {
-            db = openOrCreateDatabase("bancoAgenda", MODE_PRIVATE, null);
-        } catch (Exception e) {
-            msg("Erro ao abrir ou criar o banco de dados!");
-        }/* finally {
-            msg("Banco de dados aberto");
-        }*/
-
-    }
-
-    //método para buscar registro
-    public void buscarDados() {
-        abrirDB();
-        cursor = db.query("contatos",
-                new String[]{"nome", "fone"},
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-        );
+        cursor = BancoDados.buscarTodosDados(this);
         if (cursor.getCount() != 0) {
-            cursor.moveToFirst();
             mostraDados();
         } else {
-            msg("Nenhum dados encontrado!");
+            CxMsg.msg(this,"Nenhum dados encontrado!");
         }
-    }
-    // método mostrar dados na tela
+        binding.btnVoltarConsulta.setOnClickListener(v -> voltarTelaMain());
+        binding.btnAnteriorConsulta.setOnClickListener(v -> registroAnterior());
+        binding.btnProximoConsulta.setOnClickListener(v -> proximoRegistro());
 
+    }
+
+    @SuppressLint("Range")
     public void mostraDados() {
-       // binding.etNomeConsulta.setText(cursor.getString(cursor.getColumnIndex("nome")));
-        //binding.etTelefoneConsulta.setText(cursor.getString(cursor.getColumnIndex("fone")));
+        binding.etNomeConsulta.setText(cursor.getString(cursor.getColumnIndex("nome")));
+        binding.etTelefoneConsulta.setText(cursor.getString(cursor.getColumnIndex("fone")));
     }
 
-    /*
     //Buscra proximo registro
     public void proximoRegistro() {
-        cursor.moveToNext();
+        try {
+            cursor.moveToNext();
+            mostraDados();
+        } catch (Exception e) {
+            if (cursor.isAfterLast()) {
+                CxMsg.msg(this,"Não existem mais regidtros");
+            } else {
+                CxMsg.msg(this,"Erro ao navegar pelos registros");
+            }
+        }
     }
 
     //buscar registro anterior
     public void registroAnterior() {
-        cursor.moveToPrevious();
+        try {
+            cursor.moveToPrevious();
+            mostraDados();
+        } catch (Exception e) {
+            if (cursor.isBeforeFirst()) {
+                CxMsg.msg(this,"Não existem mais regidtros");
+            } else {
+                CxMsg.msg(this,"Erro ao navegar pelos registros");
+            }
+        }
+
     }
-    */
-
-
-
-    /*
-     * Fim da configuração do banco de dados
-     * */
-
-    // configurando mensagens de alerta para melhor identificar
-    public void msg(String txt) {
-        AlertDialog.Builder adb = new AlertDialog.Builder(this);
-        adb.setMessage(txt);
-        adb.setNeutralButton("OK", null);
-        adb.show();
-    }
-
 
     public void voltarTelaMain() {
         Intent it_tela_main = new Intent(this, MainActivity.class);

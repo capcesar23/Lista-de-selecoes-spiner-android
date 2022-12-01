@@ -38,8 +38,11 @@
                 android:layout_height="wrap_content"
                 android:ems="25"
                 android:hint="@string/nome"
+                android:importantForAutofill="no"
                 android:inputType="textPersonName"
-                android:importantForAutofill="no" />
+                android:minHeight="48dp"
+                android:textColorHint="#757575"
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -60,8 +63,11 @@
                 android:layout_height="wrap_content"
                 android:ems="11"
                 android:hint="@string/telefone"
+                android:importantForAutofill="no"
                 android:inputType="phone"
-                android:importantForAutofill="no" />
+                android:minHeight="48dp"
+                android:textColorHint="#757575"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -78,7 +84,7 @@
                 android:layout_weight="1"
                 android:text="@string/anterior"
                 android:layout_margin="8dp"
-                style="?android:attr/buttonBarButtonStyle" />
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/btn_proximo_consulta"
@@ -87,7 +93,7 @@
                 android:layout_weight="1"
                 android:text="@string/proximo"
                 android:layout_margin="8dp"
-                style="?android:attr/buttonBarButtonStyle" />
+                tools:ignore="ButtonStyle" />
         </LinearLayout>
 
         <Button
